@@ -1,244 +1,117 @@
-# JS Mocha With Appium — TestMu AI (Formerly LambdaTest)
-![pw](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-
+# Run Appium Tests with Node.js and Mocha on TestMu AI (Formerly LambdaTest)
 
 <p align="center">
-  <a href="https://www.testmuai.com/blog/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha" target="_bank">Blog</a>
-  &nbsp; &#8901; &nbsp;
-  <a href="https://www.testmuai.com/support/docs/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha" target="_bank">Docs</a>
-  &nbsp; &#8901; &nbsp;
-  <a href="https://www.testmuai.com/learning-hub/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha" target="_bank">Learning Hub</a>
-  &nbsp; &#8901; &nbsp;
-  <a href="https://www.testmuai.com/newsletter/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha" target="_bank">Newsletter</a>
-  &nbsp; &#8901; &nbsp;
-  <a href="https://www.testmuai.com/certifications/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha" target="_bank">Certifications</a>
-  &nbsp; &#8901; &nbsp;
-  <a href="https://www.youtube.com/@TestMuAI" target="_bank">YouTube</a>
+  <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
+  <a href="https://www.npmjs.com/package/mocha"><img src="https://img.shields.io/npm/v/mocha.svg?style=for-the-badge&labelColor=000000" alt="Mocha version"></a>
+  <a href="https://community.testmuai.com/"><img src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&labelColor=000000" alt="Community"></a>
 </p>
-&emsp;
-&emsp;
-&emsp;
 
-_Appium is a tool for automating native, mobile web, and hybrid applications on iOS, Android, and Windows platforms. It supports iOS native apps written in Objective-C or Swift and Android native apps written in Java or Kotlin. It also supports mobile web apps accessed using a mobile browser (Appium supports Safari on iOS and Chrome or the built-in 'Browser' app on Android). Perform Appium automation tests on [TestMu AI's online cloud](https://www.testmuai.com/mobile-app-testing/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha)._
+## Getting Started
 
-_Learn the basics of [Appium testing on the TestMu AI platform](https://www.testmuai.com/support/docs/getting-started-with-appium-testing/)._
+[TestMu AI](https://www.testmuai.com/) (Formerly LambdaTest) is the world's first full-stack AI Agentic Quality Engineering platform that empowers teams to test intelligently, smarter, and ship faster. Built for scale, it offers a full-stack testing cloud with 10K+ real devices and 3,000+ browsers. With AI-native test management, MCP servers, and agent-based automation, TestMu AI supports Selenium, Appium, Playwright, and all major frameworks. 
 
-[<img height="53" width="200" src="https://user-images.githubusercontent.com/70570645/171866795-52c11b49-0728-4229-b073-4b704209ddde.png">](https://accounts.lambdatest.com/register)
+With TestMu AI (Formerly LambdaTest), you can run Appium tests in Node.js using the Mocha framework across real Android and iOS devices. This sample shows how to configure Node.js Mocha Appium tests to run on the TestMu AI Real Device Cloud.
 
-## Table of Contents
+- [Sign up on TestMu AI](https://www.testmuai.com/register/) (Formerly LambdaTest).
+- Follow the [TestMu AI Documentation](https://www.testmuai.com/support/docs/) for the full setup walkthrough.
 
-- [Pre-requisites](#pre-requisites)
-- [Run Your First Test](#run-your-first-test)
-- [Executing The Tests](#executing-the-tests)
+### Prerequisites
 
-## Pre-requisites
+- Node.js and npm (latest stable)
+- A TestMu AI (Formerly LambdaTest) account with your username and access key
 
-Before you can start performing App automation testing with Appium, you would need to follow these steps:
+### Setup
 
-- Download and install **NodeJS**. You should be having **NodeJS v6** or newer. Click [here](https://nodejs.org/en/) to download.
-- Make sure you are using the latest version of **JavaScript**.
-- Install **npm** from the official website by clicking [here](https://www.npmjs.com/).
-
-### Clone The Sample Project
-
-Clone the TestMu AI’s :link: [LT-appium-nodejs-mocha](https://github.com/LambdaTest/LT-appium-nodejs-mocha) repository and navigate to the code directory as shown below:
+Clone and install dependencies:
 
 ```bash
-git clone https://github.com/LambdaTest/LT-appium-nodejs-mocha
-cd LT-appium-nodejs-mocha
-```
-
-### Setting Up Your Authentication
-
-Make sure you have your TestMu AI credentials with you to run test automation scripts on LambdaTest. To obtain your access credentials, [purchase a plan](https://billing.lambdatest.com/billing/plans/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha) or access the [Automation Dashboard](https://appautomation.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha).
-
-Set TestMu AI `Username` and `Access Key` in environment variables.
-
-**For Linux/macOS:**
-
-```bash
-export LT_USERNAME=YOUR_LAMBDATEST_USERNAME \
-export LT_ACCESS_KEY=YOUR_LAMBDATEST_ACCESS_KEY
-```
-
-**For Windows:**
-
-```powershell
-set LT_USERNAME=YOUR_LAMBDATEST_USERNAME `
-set LT_ACCESS_KEY=YOUR_LAMBDATEST_ACCESS_KEY
-```
-
-### Upload Your Application
-
-Upload your **_iOS_** application (.ipa file) or **_android_** application (.apk file) to the TestMu AI servers using our **REST API**. You need to provide your **Username** and **AccessKey** in the format `Username:AccessKey` in the **cURL** command for authentication. Make sure to add the path of the **appFile** in the cURL request. Here is an example cURL request to upload your app using our REST API:
-
-**Using App File:**
-
-**For Linux/macOS:**
-
-```bash
-curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
---location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
---form 'name="Android_App"' \
---form 'appFile=@"/Users/macuser/Downloads/proverbial_android.apk"'
-```
-
-**For Windows:**
-
-```powershell
-curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -F "appFile=@"/Users/macuser/Downloads/proverbial_android.apk""
-```
-
-**Using App URL:**
-
-**For Linux/macOS:**
-
-```bash
-curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
---location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
---form 'name="Android_App"' \
---form 'url="https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk"'
-```
-
-**For Windows:**
-
-```powershell
-curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -d "{"url":"https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk","name":"sample.apk"}"
-```
-
-> **Tip:**
-
-> - If you do not have any **.apk** or **.ipa** file, you can run your sample tests on TestMu AI by using our sample :link: [Android app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk) or sample :link: [iOS app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_ios.ipa).
-> - Response of above cURL will be a **JSON** object containing the `App URL` of the format - <lt://APP123456789123456789> and will be used in the next step.
-
-## Run Your First Test
-
-Once you are done with the above-mentioned steps, you can initiate your first test on LambdaTest.
-
-Test Scenario: Check out [android_test.js](https://github.com/LambdaTest/LT-appium-nodejs-mocha/blob/master/specs/android_test.js) file to view the sample test script for android and [ios_test.js](https://github.com/LambdaTest/LT-appium-nodejs-mocha/blob/master/specs/ios_test.js) for iOS.
-
-### Configuring Your Test Capabilities
-
-You can update your custom capabilities in the scripts. In our sample script, we are passing platform name, platform version, device name and app url (generated earlier) along with other capabilities like build name and test name via capabilities object. The capabilities object in the sample code for a single test are defined as:
-
-**Android:**
-
-```javascript title="android.conf.js"
-exports.capabilities = {
-  'build': 'Mocha-Appium-Sample', //Build name
-  'name': 'Mocha-Android', // Test name
-  'platformName':'android', // OS name
-  'deviceName': 'Galaxy S10', // Device name
-  'platformVersion': '11', // OS version
-  'app' : 'lt://proverbial-android',     // Add app (.apk) url here
-  'isRealMobile' : true,
-  'visual': false,  // To take step by step screenshot
-  'network':false,  // To capture network Logs
-  'console':false, // To capture console logs.
-  'tunnel': false // If you want to run the localhost than change it to true
-  };
-```
-**iOS:**
-
-```javascript title="ios.conf.js"
-exports.capabilities = {
-  'build': 'Mocha-iOS-Sample', //Build name
-  'name': 'Mocha-iOS', // Test name
-  'platformName':'ios', // OS name
-  'deviceName': 'iPhone 12 Pro', // Device name
-  'platformVersion': '15', // OS version
-  'app' : 'lt://proverbial-ios',     // Add app (.ipa) url here
-  'isRealMobile' : true,
-  'visual': false,  // To take step by step screenshot
-  'network':false,  // To capture network Logs
-  'console':false, // To capture console logs.
-  'tunnel': false // If you want to run the localhost than change it to true
-  };
-```
-
-**Info Note:**
-
-- You must add the generated **APP_URL** to the `"app"` capability in the config file.
-- You can generate capabilities for your test requirements with the help of our inbuilt :link: **[Capabilities Generator tool](https://www.testmuai.com/capabilities-generator/index.html)**. A more Detailed Capability Guide is available [here :page_facing_up:](https://www.testmuai.com/support/docs/desired-capabilities-in-appium/) .
-
-## Executing The Tests
-
-Installing depencies:
-
-```js
-npm i
+git clone https://github.com/LambdaTest/LT-appium-nodejs-mocha && cd LT-appium-nodejs-mocha
 npm install
-npm install selenium-webdriver
-npm i appium-android-driver
-npm i appium-base-driver
-npm install --save
 ```
 
-Execute the following command to run your test on TestMu AI platform:
+Set your credentials as environment variables.
 
-**Android:**
+**macOS / Linux:**
 
-```js 
-npm run android    //to run single test
-npm run parallel_android    //to run parallel tests
+```bash
+export LT_USERNAME="YOUR_USERNAME"
+export LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 ```
 
-**IOS:**
+**Windows:**
+
+```bash
+set LT_USERNAME="YOUR_USERNAME"
+set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
+```
+
+### Run tests
+
+```bash
+npm run android
+```
+
+For iOS:
+
+```bash
+npm run ios
+```
+
+View results on your TestMu AI dashboard.
+
+### Local testing with TestMu AI Tunnel
+
+To test locally hosted apps, set up the TestMu AI tunnel. OS-specific guides:
+
+- [Local Testing on Windows](https://www.testmuai.com/support/docs/local-testing-for-windows/)
+- [Local Testing on macOS](https://www.testmuai.com/support/docs/local-testing-for-macos/)
+- [Local Testing on Linux](https://www.testmuai.com/support/docs/local-testing-for-linux/)
+
+Add the following to your capabilities:
 
 ```js
-npm run ios    //to run single test
-npm run parallel_ios    //to run parallel tests
+tunnel: true,
 ```
 
-**Info:** Your test results would be displayed on the test console (or command-line interface if you are using terminal/cmd) and on the :link: [TestMu AI App Automation Dashboard](https://appautomation.lambdatest.com/build/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha).
+## Contributions
 
-## Additional Links
+Contributions are welcome. Open an issue to discuss your idea before submitting a pull request. When reporting bugs, include your Node.js version, OS, and Mocha version.
 
-- [Advanced Configuration for Capabilities](https://www.testmuai.com/support/docs/desired-capabilities-in-appium/)
-- [How to test locally hosted apps](https://www.testmuai.com/support/docs/testing-locally-hosted-pages/)
-- [How to integrate TestMu AI with CI/CD](https://www.testmuai.com/support/docs/integrations-with-ci-cd-tools/)
+## TestMu AI (Formerly LambdaTest) Community
 
-## Documentation & Resources :books:
+Connect with testers and developers in the [TestMu AI Community](https://community.testmuai.com/). Ask questions, share what you are building, and discuss best practices in test automation and DevOps.
+  
+## TestMu AI (Formerly LambdaTest) Certifications
 
-Visit the following links to learn more about TestMu AI's features, setup and tutorials around test automation, mobile app testing, responsive testing, and manual testing.
+Earn free [TestMu AI Certifications](https://www.testmuai.com/certifications/) for testers, developers, and QA engineers. Validate your skills in Selenium, Cypress, Playwright, Appium, Espresso and more. Industry-recognized, shareable on LinkedIn, and built by practitioners, not marketers.
 
-- [TestMu AI Documentation](https://www.testmuai.com/support/docs/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha)
-- [TestMu AI Blog](https://www.testmuai.com/blog/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha)
-- [TestMu AI Learning Hub](https://www.testmuai.com/learning-hub/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha)
+## Learning Resources by TestMu AI (Formerly LambdaTest)
 
-## TestMu AI Community :busts_in_silhouette:
+Learn modern testing through tutorials, guides, videos, and weekly updates:
 
-The [TestMu AI Community](https://community.testmuai.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-nodejs-mocha) allows people to interact with tech enthusiasts. Connect, ask questions, and learn from tech-savvy people. Discuss best practises in web development, testing, and DevOps with professionals from across the globe 🌎
+* [TestMu AI Blog](https://www.testmuai.com/blog/)
+* [TestMu AI Learning Hub](https://www.testmuai.com/learning-hub/)
+* [TestMu AI on YouTube](https://www.youtube.com/@TestMuAI)
+* [TestMu AI Newsletter](https://www.testmuai.com/newsletter/)
+  
+## LambdaTest is Now TestMu AI
 
-## What's New At TestMu AI ❓
+On **January 12, 2026**, [LambdaTest evolved to TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/), the world's first fully autonomous **Agentic AI Quality Engineering Platform**.
 
-To stay updated with the latest features and product add-ons, visit [Changelog](https://changelog.lambdatest.com/)
+Same team. Same infrastructure. Same customer accounts. All existing LambdaTest logins, scripts, capabilities, and integrations continue to work without change.
 
-## 🚀 LambdaTest is Now TestMu AI
+👉 Find the new home for [LambdaTest](https://www.testmuai.com).
 
-👋 Welcome to TestMu AI, the next evolution of LambdaTest. As of January 2026, [LambdaTest is Now TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/) - we have evolved from a cross-browser testing cloud into a unified, AI-native quality engineering platform designed for the modern DevOps era.
+### How LambdaTest Evolved into TestMu AI
 
-Whether you have been part of the LambdaTest community for years or are just discovering TestMu AI, our mission remains the same: to help you ship faster with high-scale test execution, autonomous testing, and deep quality analytics.
+In 2017, we launched LambdaTest with a simple mission: make testing fast, reliable, and accessible. As LambdaTest grew, we expanded into Test Intelligence, Visual Regression Testing, Accessibility Testing, API Testing, and Performance Testing, covering the full depth of the testing lifecycle.
 
-### 🔄 Our Rebrand Journey
+As software development entered the AI era, testing had to evolve, too. We rebuilt the architecture to be AI-native from the ground up, with autonomous agents that **plan, author, execute, analyze, and optimize tests** while keeping humans in the loop. The platform integrates with your repos, CI, IDEs, and terminals, continuously learning from every code change and development signal.
 
-In 2017, we introduced LambdaTest with a clear mission: to become the world's most trusted cloud testing platform. We built a scalable, high-performance test cloud that eliminated flakiness, improved developer feedback cycles, and accelerated release velocity for teams worldwide.
+That evolution earned a new name: **TestMu AI**, built for an AI-first future of quality engineering. TestMu is not a new name for us. It is the name of our annual community conference, which has brought together 100,000+ quality engineers to discuss how AI would reshape testing, long before that became an industry norm. 
 
-As LambdaTest grew, we expanded the platform into Test Intelligence, Visual Regression Testing, Accessibility Testing, API Testing, and Performance Testing, covering the entire testing lifecycle. These capabilities enabled teams to test any stack, on any technology, at enterprise scale.
+What started as a high-performance cloud testing platform has transformed into an AI-native, multi-agent system powering a connected, end-to-end quality layer. That evolution defined a new identity: LambdaTest evolved into TestMu AI, built for an AI-first future of quality engineering.
 
-Over time, we rebuilt the architecture to be AI-native from the ground up. What began as LambdaTest's high-performance testing cloud has now evolved into TestMu AI, an AI-native, multi-agent platform redefining modern quality engineering.
+## Support
 
-We chose the name TestMu AI to reflect our shift towards intelligent, autonomous testing. While our identity has changed, our core technology and commitment to the testing community stay the same.
-
-👉 Find [LambdaTest's New Home](https://www.testmuai.com/).
-
-### 🔭 Explore TestMu AI
-
-The same infrastructure LambdaTest customers relied on, now delivered through autonomous AI agents.
-
-- [KaneAI](https://www.testmuai.com/kane-ai/)
-- [Agent-to-Agent Testing](https://www.testmuai.com/agent-to-agent-testing/)
-- [HyperExecute](https://www.testmuai.com/hyperexecute/)
-- [Real Device Cloud](https://www.testmuai.com/real-device-cloud/)
-- [Pricing](https://www.testmuai.com/pricing/)
-- [Documentation](https://www.testmuai.com/support/docs/)
+Got a question? Email [support@testmuai.com](mailto:support@testmuai.com) or chat with us 24x7 from our chat portal.
